@@ -526,18 +526,25 @@ document.addEventListener('DOMContentLoaded', function() {
   }
   //根据屏幕大小计算加载pizza数量
   var pizzaCount = (Math.floor(winHeight / s) + 1) * cols;
-  
+  //只获取一次dom
+  var movingPizzas1 = document.getElementById("movingPizzas1");
   for (var i = 0; i < pizzaCount; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
-    elem.src = "images/pizza.png";
-    elem.style.height = "100px";
-    elem.style.width = "73.3px";
+    
+    movingPizzas1.appendChild(elem);
+  }
+  //获取所有背景pizza
+  var mover = document.getElementsByClassName("mover");
+  //统一加载样式
+  for (var i = 0; i < mover.length; i++) {
+  	mover[i].src = "images/pizza.png";
+    mover[i].style.height = "100px";
+    mover[i].style.width = "73.3px";
     //设置图片初始位置
-    elem.basicLeft = (i % cols) * s;
-    elem.style.left = elem.basicLeft + Math.sin(i % 5) * 100 + 'px';
-    elem.style.top = (Math.floor(i / cols) * s) + 'px';
-    document.getElementById("movingPizzas1").appendChild(elem);
+    mover[i].basicLeft = (i % cols) * s;
+    mover[i].style.left = mover[i].basicLeft + Math.sin(i % 5) * 100 + 'px';
+    mover[i].style.top = (Math.floor(i / cols) * s) + 'px';
   }
   //页面加载时不需要读取滚动条位置，位置默认为0
   //updatePositions();
